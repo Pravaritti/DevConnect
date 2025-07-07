@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
 const userSchema= new mongoose.Schema({
     firstName: {
       type: String,
@@ -74,4 +77,24 @@ const userSchema= new mongoose.Schema({
   {
     timestamps: true,
   });
+
+//offloading jwt token creation onto helper methods: mongoose schema methods
+//attaching this helper method onto user schema so that every user can have its own token
+userSchema.methods.getJWT= async function(){
+    const user= this;
+
+    const token= await jwt.sign({_id: user._id}, "password_only_known_to_server", {expiresIn: "1d"});
+
+    return token;
+};
+
+userSchema.methods.validatePassword= async function(passwordInputByUser) {
+    const user= this;
+    const passwordHash= user.password;
+
+    const isPasswordValid= await bcrypt.compare(passwordInputByUser, passwordHash);
+
+    return isPasswordValid;
+}
+
 module.exports= mongoose.model("User", userSchema);
