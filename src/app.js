@@ -1,10 +1,5 @@
 const express= require("express");
 const connectDB= require("./config/database");
-const {userAuth}= require("./middleware/auth");
-const User= require("./models/user");
-const {validateSignUpdata}= require("./utils/validation");
-const bcrypt= require("bcrypt");
-const jwt= require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const app= express();//instance of express.js application
 
