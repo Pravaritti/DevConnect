@@ -30,7 +30,7 @@ app.post("/signup", async (req, res) => {
         res.status(500).send("Error: " + err.message);
     }
 
-})
+});
 
 //login api
 app.post("/login", async (req, res)=>{
@@ -54,6 +54,6 @@ app.post("/login", async (req, res)=>{
     }catch(err){
         res.status(404).send("ERROR: "+ err.message);
     }
-})
+});
 
 module.exports= authRouter;
