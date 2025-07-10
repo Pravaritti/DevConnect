@@ -1,8 +1,9 @@
 const express= require("express");
 const profileRouter= express.Router();
+const {userAuth}= require("../middleware/auth");
 
 //get profile api using cookie
-app.get("/profile", userAuth, async (req, res)=>{
+profileRouter.get("/profile", userAuth, async (req, res)=>{
     try{
         const user= req.user;
         console.log(user);

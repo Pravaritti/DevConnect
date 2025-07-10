@@ -1,5 +1,6 @@
 const express= require("express");
 const requestRouter= express.Router();
+const {userAuth}= require("../middleware/auth");
 
 //sendConnection api
 requestRouter.post("/sendConnectionRequest", userAuth, (req, res)=>{

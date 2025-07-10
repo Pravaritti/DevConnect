@@ -1,8 +1,12 @@
 const express= require("express");
 const authRouter= express.Router();
 
+const {validateSignUpdata}= require("../utils/validation");
+const User= require("../models/user");
+const bcrypt= require("bcrypt");
+
 //signup api
-app.post("/signup", async (req, res) => {
+authRouter.post("/signup", async (req, res) => {
     // const userObj= {
     //     firstName: "Pravaritti",
     //     lastName: "Kaushik",
@@ -33,7 +37,7 @@ app.post("/signup", async (req, res) => {
 });
 
 //login api
-app.post("/login", async (req, res)=>{
+authRouter.post("/login", async (req, res)=>{
     try{
         const {emailId, password}= req.body;
 
