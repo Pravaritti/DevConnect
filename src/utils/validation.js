@@ -12,6 +12,14 @@ const validateSignUpdata = (req) => {
   }
 };
 
+const validateEditProfile = (req) => {
+  const allowedEditFields= ["firstName", "lastName", "emailId", "photoUrl", "gender", "age", "about", "skills"];
+  //loop through all the req.body fields and check if every field is present inside allowed fields
+  const isEditAllowed =Object.keys(req.body).every((field)=>allowedEditFields.includes(field));
+
+  return isEditAllowed;
+};
 module.exports = {
   validateSignUpdata,
+  validateEditProfile,
 };
