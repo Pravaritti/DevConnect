@@ -14,7 +14,7 @@ profileRouter.get("/profile/view", userAuth, async (req, res)=>{
     }
 });
 
-profileRouter.patch("/profile/edit", userAuth, (req, res)=>{
+profileRouter.patch("/profile/edit", userAuth, async (req, res)=>{
     try{
         //validate fields
         if(!validateEditProfile(req)){
@@ -28,10 +28,15 @@ profileRouter.patch("/profile/edit", userAuth, (req, res)=>{
         //basically updating the user fields and setting their values to new ones
         Object.keys(req.body).forEach((key) => (loggedInUser[key]= req.body[key]));
 
-        res.send(`${loggedInUser.firstName}, your profile updated successfully`);
+        await loggedInUser.save();
+
+        res.json({
+            message: `${loggedInUser.firstName}, your profile updated successfully`,
+            data: loggedInUser,
+        });
     }catch(err){
         res.status(400).send("ERROR: "+err.message);
     }
-})
+});
 
 module.exports= profileRouter;
