@@ -7,6 +7,7 @@ const userSchema= new mongoose.Schema({
     firstName: {
       type: String,
       required: true,
+      index: true,
       minLength: 4,
       maxLength: 50,
     },
@@ -17,7 +18,7 @@ const userSchema= new mongoose.Schema({
       type: String,
       lowercase: true,
       required: true,
-      unique: true,
+      unique: true, //creates unique index
       trim: true,
       validate(value) {
         if (!validator.isEmail(value)) {
